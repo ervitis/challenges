@@ -7,16 +7,7 @@ pig_it('Hello world !')     # elloHay orldway !
 
 
 def pig_it(text):
-    r = []
-    for t in text.split(' '):
-        if t.isalnum():
-            if len(t) == 1:
-                r.append(t + 'ay')
-            else:
-                r.append(t[1:] + t[:-len(t)+1] + 'ay')
-        else:
-            r.append(t)
-    return ' '.join(r)
+    return ' '.join([t[1:] + t[:1] + 'ay' if t.isalpha() else t for t in text.split()])
 
 
 def main():
