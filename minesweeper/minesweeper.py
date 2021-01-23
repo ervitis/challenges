@@ -11,10 +11,12 @@ class Minesweeper(object):
     m x n and probability p of a mine to appear
     """
     def __init__(self, n, m, p):
-        self.__n = n
-        self.__m = m
-        self.__bombs = [[-1 if random.random() < p else 0 for _ in range(n)] for _ in range(m)]
+        self.__n = 3
+        self.__m = 3
+        self.__bombs = [[0, 0, 0], [0, -1, -1], [-1, -1, 0]]  # [[-1 if random.random() < p else 0 for _ in range(n)] for _ in range(m)]
         self.__board = copy.deepcopy(self.__bombs)
+        self.__free = self.__n * self.__m
+        self.__number_bombs = 0
         self._prepare_board()
         self._print_board()
         self._neighbours()
@@ -28,6 +30,7 @@ class Minesweeper(object):
             for j in range(self.__m):
 
                 if self.__bombs[i][j] == -1:
+                    self.__number_bombs += 1
                     continue
 
                 # up left
@@ -46,7 +49,7 @@ class Minesweeper(object):
                 if j < self.__m - 1 and self.__bombs[i][j+1] == -1:
                     self.__bombs[i][j] += 1
                 # down left
-                if i < self.__n - 1 and j < self.__m - 1 and self.__bombs[i+1][j-1] == -1:
+                if i < self.__n - 1 and j > 0 and self.__bombs[i+1][j-1] == -1:
                     self.__bombs[i][j] += 1
                 # down
                 if i < self.__n - 1 and self.__bombs[i+1][j] == -1:
@@ -90,12 +93,19 @@ class Minesweeper(object):
 
         while self.__over is False:
             x, y = self._get_coordinate()
+            if x >= self.__n or y >= self.__m:
+                continue
             if self.__bombs[x][y] == -1:
                 self.__board[x][y] = 'X'
                 print('BOOOOOOOOOOOOOOOOOOM')
                 self.__over = True
             else:
                 self.__board[x][y] = self.__bombs[x][y]
+                if self.__number_bombs - ((self.__n * self.__m) - self.__free) <= 0:
+                    print('YOU WIN!!!')
+                    self.__over = True
+                self.__free -= 1
+
             clear()
             self._print_board()
 
