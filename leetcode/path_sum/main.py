@@ -18,20 +18,14 @@ class TreeNode(object):
         self.right = None
 
 
-def path_sum(root: TreeNode, s: int) -> bool:
+def path_sum(root: TreeNode, sum: int) -> bool:
     if root is None:
-        return s == 0
+        return False
     else:
-        s -= root.val
-        t = False
-        if s == 0:
+        if sum == root.val and root.left is None and root.right is None:
             return True
-        if root.right is not None:
-            t = t or path_sum(root.right, s)
-        if root.left is not None:
-            t = t or path_sum(root.left, s)
-
-        return t
+        else:
+            return path_sum(root.left, sum - root.val) or path_sum(root.right, sum - root.val)
 
 
 def main():
