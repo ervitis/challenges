@@ -15,7 +15,7 @@ def convert_to_title(n: int) -> str:
 
 
 if __name__ == '__main__':
-    # print(convert_to_title(1))
-    # print(convert_to_title(2))
+    print(convert_to_title(1))
+    print(convert_to_title(2))
     print(convert_to_title(28))
     print(convert_to_title(701))
