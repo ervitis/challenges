@@ -20,4 +20,4 @@ def num_equiv_domino_pairs(dominoes: List[List[int]]) -> int:
 
 
 if __name__ == '__main__':
-    print(num_equiv_domino_pairs([[1,2],[2,1],[3,4],[5,6]]))
+    print(num_equiv_domino_pairs([[1, 2], [2, 1], [3, 4], [5, 6]]))
