@@ -8,14 +8,10 @@ Given strings sequence and word, return the maximum k-repeating value of word in
 def max_repeating(sequence: str, word: str) -> int:
     if len(sequence) < len(word):
         return 0
-    c = 0
-
-    for i in range(101):
-        if word*i in sequence:
-            c = i
-        elif len(sequence) < i:
-            break
-    return c
+    c = 1
+    while word*c in sequence:
+        c += 1
+    return c - 1
 
 
 if __name__ == '__main__':
